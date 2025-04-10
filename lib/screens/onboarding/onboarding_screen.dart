@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../auth/login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -14,22 +13,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<OnboardingItem> _items = [
-    OnboardingItem(
-      image: 'assets/images/carservice.gif',
-      title: 'Dịch vụ chuyên nghiệp',
-      description: 'Đội ngũ kỹ thuật viên lành nghề, trang thiết bị hiện đại',
-    ),
-    OnboardingItem(
-      image: 'assets/images/carmoving.gif',
-      title: 'Đặt lịch dễ dàng',
-      description: 'Đặt lịch nhanh chóng, theo dõi trạng thái thời gian thực',
-    ),
-    OnboardingItem(
-      image: 'assets/images/serviceman.png',
-      title: 'Hỗ trợ 24/7',
-      description: 'Đội ngũ tư vấn viên luôn sẵn sàng hỗ trợ mọi lúc',
-    ),
+  final List<Map<String, dynamic>> _items = [
+    {
+      'title': 'Dịch vụ sửa chữa',
+      'description':
+          'Đặt lịch sửa chữa, bảo dưỡng xe với đội ngũ kỹ thuật viên chuyên nghiệp',
+      'image': 'assets/images/repair.png',
+    },
+    {
+      'title': 'Thuê xe',
+      'description':
+          'Đa dạng các loại xe từ 4 đến 45 chỗ, đáp ứng mọi nhu cầu di chuyển',
+      'image': 'assets/images/rental.png',
+    },
+    {
+      'title': 'Tiện lợi & An toàn',
+      'description':
+          'Đặt lịch nhanh chóng, thanh toán dễ dàng và bảo mật thông tin',
+      'image': 'assets/images/secure.png',
+    },
   ];
 
   @override
@@ -54,7 +56,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   });
                 },
                 itemBuilder: (context, index) {
-                  return _buildPage(_items[index]);
+                  final item = _items[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          item['image'],
+                          height: 240,
+                        ).animate().fadeIn().scale(),
+                        const SizedBox(height: 40),
+                        Text(
+                          item['title'],
+                          style: GoogleFonts.poppins(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ).animate().fadeIn().slideY(begin: 0.3),
+                        const SizedBox(height: 16),
+                        Text(
+                          item['description'],
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                          textAlign: TextAlign.center,
+                        ).animate().fadeIn().slideY(begin: 0.3),
+                      ],
+                    ),
+                  );
                 },
               ),
             ),
@@ -73,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 8,
                         decoration: BoxDecoration(
                           color: _currentPage == index
-                              ? Theme.of(context).primaryColor
+                              ? Theme.of(context).colorScheme.primary
                               : Colors.grey[300],
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -83,8 +115,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(height: 32),
                   SizedBox(
                     width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
+                    child: FilledButton(
                       onPressed: () {
                         if (_currentPage < _items.length - 1) {
                           _pageController.nextPage(
@@ -92,52 +123,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             curve: Curves.easeInOut,
                           );
                         } else {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
+                          Navigator.pushReplacementNamed(context, '/login');
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                      style: FilledButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: Text(
                         _currentPage < _items.length - 1
                             ? 'Tiếp tục'
                             : 'Bắt đầu',
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (_currentPage < _items.length - 1) ...[
-                    const SizedBox(height: 16),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Bỏ qua',
-                        style: GoogleFonts.poppins(
                           fontSize: 16,
-                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                  ],
+                  ).animate().fadeIn().slideY(begin: 0.3),
                 ],
               ),
             ),
@@ -146,60 +148,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
     );
   }
-
-  Widget _buildPage(OnboardingItem item) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            item.image,
-            height: 300,
-          )
-              .animate(onPlay: (controller) => controller.repeat())
-              .shimmer(duration: 2000.ms, color: Theme.of(context).primaryColor.withOpacity(0.3))
-              .animate()
-              .fade()
-              .scale(),
-          const SizedBox(height: 40),
-          Text(
-            item.title,
-            style: GoogleFonts.poppins(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          )
-              .animate()
-              .fade()
-              .slideY(begin: 0.3),
-          const SizedBox(height: 16),
-          Text(
-            item.description,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
-            textAlign: TextAlign.center,
-          )
-              .animate()
-              .fade()
-              .slideY(begin: 0.3),
-        ],
-      ),
-    );
-  }
-}
-
-class OnboardingItem {
-  final String image;
-  final String title;
-  final String description;
-
-  OnboardingItem({
-    required this.image,
-    required this.title,
-    required this.description,
-  });
 }

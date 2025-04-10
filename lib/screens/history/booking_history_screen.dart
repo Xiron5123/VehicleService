@@ -95,68 +95,81 @@ class _BookingList extends StatelessWidget {
 
         return Card(
           margin: const EdgeInsets.only(bottom: 16),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Text(
-                        service.name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                    Row(
+                      children: [
+                        Icon(
+                          service.type == 'repair' ? Icons.build : Icons.directions_car,
+                          color: Theme.of(context).primaryColor,
                         ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            service.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        _StatusChip(status: status),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      DateFormat('dd/MM/yyyy HH:mm').format(bookingDate),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
                       ),
                     ),
-                    _StatusChip(status: status),
+                    if (booking['note']?.isNotEmpty ?? false) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        booking['note'] as String,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Tổng tiền',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          NumberFormat.currency(
+                            locale: 'vi_VN',
+                            symbol: '',
+                            decimalDigits: 0,
+                          ).format(service.price) + ' VNĐ',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                _InfoRow(
-                  icon: Icons.calendar_today,
-                  label: 'Ngày đặt:',
-                  value: DateFormat('dd/MM/yyyy HH:mm').format(bookingDate),
-                ),
-                const SizedBox(height: 8),
-                _InfoRow(
-                  icon: Icons.directions_car,
-                  label: 'Xe:',
-                  value: '${vehicleInfo['brand']} ${vehicleInfo['model']}',
-                ),
-                const SizedBox(height: 8),
-                _InfoRow(
-                  icon: Icons.confirmation_number,
-                  label: 'Biển số:',
-                  value: vehicleInfo['plateNumber'].toString(),
-                ),
-                const SizedBox(height: 8),
-                _InfoRow(
-                  icon: Icons.attach_money,
-                  label: 'Giá:',
-                  value: NumberFormat.currency(
-                    locale: 'vi_VN',
-                    symbol: '₫',
-                    decimalDigits: 0,
-                  ).format(service.price),
-                ),
-                _InfoRow(
-                  icon: Icons.timer,
-                  label: 'Thời gian ước tính:',
-                  value: _formatDuration(service.estimatedDuration),
-                ),
-                if (booking['note']?.isNotEmpty ?? false) ...[
-                  const SizedBox(height: 8),
-                  _InfoRow(
-                    icon: Icons.note,
-                    label: 'Ghi chú:',
-                    value: booking['note'],
-                  ),
-                ],
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

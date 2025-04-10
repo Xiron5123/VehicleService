@@ -1,9 +1,9 @@
 # Vehicle Service App
 
-Ứng dụng đặt lịch dịch vụ xe hơi với các tính năng:
-- Xem danh sách dịch vụ sửa chữa và thuê xe
-- Đặt lịch dịch vụ
-- Xem lịch sử đặt lịch
+Ứng dụng đặt lịch sửa chữa và thuê xe ô tô với các tính năng:
+- Đặt lịch sửa chữa ô tô
+- Dịch vụ cho thuê xe
+- Quản lý lịch sử đặt lịch
 - Quản lý thông tin cá nhân
 
 ## Yêu cầu hệ thống
@@ -13,99 +13,96 @@
 - Android Studio / VS Code với Flutter extension
 - Git
 
-## Cài đặt
+## Cài đặt và chạy ứng dụng
 
 1. Clone repository:
 ```bash
 git clone https://github.com/Xiron5123/VehicleService.git
-cd VehicleService
 ```
 
-2. Cài đặt dependencies:
+2. Di chuyển vào thư mục project:
+```bash
+cd VehicleService/FEVehicleService
+```
+
+3. Cài đặt dependencies:
 ```bash
 flutter pub get
 ```
 
-3. Tạo file cấu hình:
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
-```
-
-## Chạy ứng dụng
-
-1. Đảm bảo bạn đã kết nối thiết bị hoặc máy ảo Android/iOS
-
-2. Chạy ứng dụng:
+4. Chạy ứng dụng:
 ```bash
 flutter run
 ```
+
+## Tài khoản demo
+
+Để test ứng dụng, bạn có thể sử dụng tài khoản sau:
+- Email: example@email.com
+- Mật khẩu: 12345678
+
+## Các tính năng chính
+
+### 1. Xác thực
+- Đăng ký tài khoản mới
+- Đăng nhập
+- Quên mật khẩu
+
+### 2. Dịch vụ sửa chữa
+- Xem danh sách dịch vụ
+- Đặt lịch sửa chữa
+- Chọn thời gian
+
+### 3. Thuê xe
+- Xem danh sách xe cho thuê
+- Đặt thuê xe
+- Chọn thời gian thuê
+
+### 4. Quản lý
+- Xem lịch sử đặt lịch
+- Theo dõi trạng thái
+- Quản lý thông tin cá nhân
 
 ## Cấu trúc thư mục
 
 ```
 lib/
-├── models/           # Các model dữ liệu
-├── screens/          # Các màn hình chính
-│   ├── auth/        # Màn hình xác thực
-│   ├── home/        # Màn hình chính
-│   ├── service/     # Màn hình dịch vụ
-│   ├── booking/     # Màn hình đặt lịch
-│   ├── history/     # Màn hình lịch sử
-│   └── account/     # Màn hình tài khoản
-├── widgets/         # Các widget tái sử dụng
-└── main.dart        # Điểm khởi đầu ứng dụng
+├── models/         # Data models
+├── screens/        # Các màn hình
+│   ├── auth/      # Đăng nhập/Đăng ký
+│   ├── home/      # Màn hình chính
+│   ├── rental/    # Thuê xe
+│   └── account/   # Tài khoản
+├── widgets/        # Widgets tái sử dụng
+└── main.dart      # Entry point
 ```
 
-## Tính năng chính
+## Dependencies
 
-### Dịch vụ
-- Xem danh sách dịch vụ sửa chữa và thuê xe
-- Chi tiết dịch vụ với hình ảnh, mô tả và giá
-- Đánh giá và bình luận từ người dùng
-
-### Đặt lịch
-- Chọn dịch vụ
-- Nhập thông tin xe (hãng, model, năm sản xuất)
-- Chọn ngày và giờ hẹn
-- Xác nhận đặt lịch
-
-### Lịch sử
-- Xem danh sách các lần đặt lịch
-- Chi tiết từng lần đặt lịch
-- Trạng thái đặt lịch
-
-### Tài khoản
-- Thông tin cá nhân
-- Cài đặt ứng dụng
-- Đăng xuất
-
-## Công nghệ sử dụng
-
-- Flutter: Framework phát triển ứng dụng
-- Provider: Quản lý state
-- Google Fonts: Font chữ
-- Flutter SVG: Hiển thị SVG
-- Cached Network Image: Cache hình ảnh
-- Intl: Định dạng ngày giờ và tiền tệ
-- Flutter Animate: Animation
-- Table Calendar: Lịch
-- Freezed: Code generation cho model
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.1.0
+  flutter_animate: ^4.5.0
+  form_validator: ^2.1.1
+  flutter_riverpod: ^2.4.9
+  dio: ^5.4.0
+  retrofit: ^4.0.1
+  flutter_secure_storage: ^9.0.0
+  table_calendar: ^3.0.9
+```
 
 ## Lưu ý
 
-- Ứng dụng đang sử dụng mock data
-- Cần kết nối với backend để hoạt động đầy đủ
-- Đảm bảo đã cài đặt đúng phiên bản Flutter và Dart
+- Ứng dụng hiện đang sử dụng dữ liệu mẫu
+- Một số tính năng có thể chưa hoạt động đầy đủ do chưa có backend
+- Đảm bảo cài đặt đúng phiên bản Flutter và Dart SDK
 
-## Đóng góp
+## Hỗ trợ
 
-Nếu bạn muốn đóng góp cho dự án, vui lòng:
-1. Fork repository
-2. Tạo branch mới
-3. Commit thay đổi
-4. Push lên branch
-5. Tạo Pull Request
+Nếu bạn gặp vấn đề khi cài đặt hoặc sử dụng, vui lòng tạo issue trên GitHub hoặc liên hệ qua email.
 
-## Giấy phép
+## License
 
 Dự án được phát triển bởi Tuấn Anh và được cấp phép theo [MIT License](LICENSE).

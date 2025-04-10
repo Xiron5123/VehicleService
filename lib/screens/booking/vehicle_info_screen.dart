@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../models/service.dart';
-import '../../widgets/custom_button.dart';
+import '../../widgets/common/custom_button.dart';
 import 'booking_date_screen.dart';
 
 class VehicleInfoScreen extends StatefulWidget {

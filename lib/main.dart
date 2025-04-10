@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'screens/main/main_screen.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/register_screen.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 
 void main() {
@@ -84,7 +87,13 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const OnboardingScreen(),
+      initialRoute: '/onboarding',
+      routes: {
+        '/': (context) => const MainScreen(),
+        '/onboarding': (context) => const OnboardingScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+      },
     );
   }
 }

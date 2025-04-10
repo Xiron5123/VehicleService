@@ -1,56 +1,138 @@
 import 'package:flutter/material.dart';
-import 'service.dart';
+
+enum BookingStatus {
+  completed,
+  cancelled,
+  processing,
+  pending,
+}
+
+extension BookingStatusExtension on BookingStatus {
+  String get name {
+    switch (this) {
+      case BookingStatus.completed:
+        return 'Đã hoàn thành';
+      case BookingStatus.cancelled:
+        return 'Đã hủy';
+      case BookingStatus.processing:
+        return 'Đang xử lý';
+      case BookingStatus.pending:
+        return 'Chờ xác nhận';
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case BookingStatus.completed:
+        return Colors.green;
+      case BookingStatus.cancelled:
+        return Colors.red;
+      case BookingStatus.processing:
+        return Colors.orange;
+      case BookingStatus.pending:
+        return Colors.blue;
+    }
+  }
+}
 
 class Booking {
   final String id;
-  final Service service;
-  final DateTime date;
-  final String time;
-  final String endTime;
-  final String status;
-  final String vehicleInfo;
-  final String? note;
+  final String serviceName;
+  final String serviceType; // 'rental' hoặc 'repair'
+  final DateTime bookingDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final double totalPrice;
+  final BookingStatus status;
+  final String? imageUrl;
+  final String customerName;
+  final String customerPhone;
+  final String customerEmail;
+  final String? notes;
 
-  Booking({
+  const Booking({
     required this.id,
-    required this.service,
-    required this.date,
-    required this.time,
-    required this.endTime,
+    required this.serviceName,
+    required this.serviceType,
+    required this.bookingDate,
+    this.startDate,
+    this.endDate,
+    required this.totalPrice,
     required this.status,
-    required this.vehicleInfo,
-    this.note,
+    this.imageUrl,
+    required this.customerName,
+    required this.customerPhone,
+    required this.customerEmail,
+    this.notes,
   });
 
   static final List<Booking> mockBookings = [
     Booking(
-      id: '1',
-      service: Service.mockServices[0],
-      date: DateTime.now().add(const Duration(days: 1)),
-      time: '09:00',
-      endTime: '10:00',
-      status: 'pending',
-      vehicleInfo: '51A-12345',
-      note: 'Cần rửa xe kỹ',
+      id: 'B001',
+      serviceName: 'Toyota Camry 2023',
+      serviceType: 'rental',
+      bookingDate: DateTime.now().subtract(const Duration(days: 2)),
+      startDate: DateTime.now().add(const Duration(days: 1)),
+      endDate: DateTime.now().add(const Duration(days: 3)),
+      totalPrice: 3600000,
+      status: BookingStatus.processing,
+      imageUrl: 'assets/images/camry.jpg',
+      customerName: 'Nguyễn Văn A',
+      customerPhone: '0901234567',
+      customerEmail: 'nguyenvana@email.com',
+      notes: 'Cần giao xe tại sân bay',
     ),
     Booking(
-      id: '2',
-      service: Service.mockServices[1],
-      date: DateTime.now().add(const Duration(days: 2)),
-      time: '14:00',
-      endTime: '16:00',
-      status: 'completed',
-      vehicleInfo: '51B-67890',
+      id: 'B002',
+      serviceName: 'Thay dầu động cơ',
+      serviceType: 'repair',
+      bookingDate: DateTime.now().subtract(const Duration(days: 5)),
+      totalPrice: 1200000,
+      status: BookingStatus.completed,
+      customerName: 'Trần Thị B',
+      customerPhone: '0909876543',
+      customerEmail: 'tranthib@email.com',
     ),
     Booking(
-      id: '3',
-      service: Service.mockServices[2],
-      date: DateTime.now().add(const Duration(days: 3)),
-      time: '10:00',
-      endTime: '11:00',
-      status: 'cancelled',
-      vehicleInfo: '51C-54321',
-      note: 'Đã hủy do bận việc',
+      id: 'B003',
+      serviceName: 'Mercedes GLC 300',
+      serviceType: 'rental',
+      bookingDate: DateTime.now().subtract(const Duration(days: 1)),
+      startDate: DateTime.now().add(const Duration(days: 7)),
+      endDate: DateTime.now().add(const Duration(days: 10)),
+      totalPrice: 6000000,
+      status: BookingStatus.pending,
+      imageUrl: 'assets/images/glc300.jpg',
+      customerName: 'Lê Văn C',
+      customerPhone: '0905555666',
+      customerEmail: 'levanc@email.com',
+      notes: 'Xe có tài xế',
+    ),
+    Booking(
+      id: 'B004',
+      serviceName: 'Bảo dưỡng định kỳ',
+      serviceType: 'repair',
+      bookingDate: DateTime.now().subtract(const Duration(days: 3)),
+      totalPrice: 2500000,
+      status: BookingStatus.cancelled,
+      customerName: 'Phạm Thị D',
+      customerPhone: '0907777888',
+      customerEmail: 'phamthid@email.com',
+      notes: 'Khách hẹn lại lịch sau',
+    ),
+    Booking(
+      id: 'B005',
+      serviceName: 'Honda Civic 2023',
+      serviceType: 'rental',
+      bookingDate: DateTime.now().subtract(const Duration(days: 7)),
+      startDate: DateTime.now().subtract(const Duration(days: 5)),
+      endDate: DateTime.now().subtract(const Duration(days: 3)),
+      totalPrice: 2400000,
+      status: BookingStatus.completed,
+      imageUrl: 'assets/images/civic.jpg',
+      customerName: 'Hoàng Văn E',
+      customerPhone: '0903333444',
+      customerEmail: 'hoangvane@email.com',
     ),
   ];
 }

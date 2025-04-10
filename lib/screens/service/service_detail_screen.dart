@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../models/service.dart';
-import '../../widgets/custom_button.dart';
+import '../../widgets/common/custom_button.dart';
 import '../booking/vehicle_info_screen.dart';
 
 class ServiceDetailScreen extends StatelessWidget {

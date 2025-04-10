@@ -39,10 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MainScreen()),
-        );
+        Navigator.pushReplacementNamed(context, '/');
       }
     }
   }
@@ -190,12 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(),
-                            ),
-                          );
+                          Navigator.pushNamed(context, '/register');
                         },
                         child: Text(
                           'Đăng ký ngay',

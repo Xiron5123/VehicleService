@@ -45,10 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MainScreen()),
-        );
+        Navigator.pushReplacementNamed(context, '/');
       }
     }
   }

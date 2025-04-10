@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home/services_screen.dart';
-import 'history/history_screen.dart';
 import 'account/account_screen.dart';
+import 'home/services_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -15,7 +14,6 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     const ServicesScreen(),
-    const HistoryScreen(),
     const AccountScreen(),
   ];
 
@@ -23,23 +21,19 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_selectedIndex],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) {
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
           setState(() {
             _selectedIndex = index;
           });
         },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_repair_service),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
             label: 'Dịch vụ',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.history),
-            label: 'Lịch sử',
-          ),
-          NavigationDestination(
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Tài khoản',
           ),
